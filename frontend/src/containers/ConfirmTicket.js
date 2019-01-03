@@ -1,23 +1,45 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 import ButtonAppBar from "../components/headerReserver";
+import IssuedTicketList from '../components/IssuedTicketList';
 
 const styles = {
     card: {
         margin: 48,
         height: 128
     },
-    button: {
+        button: {
         justifyContent: 'center'
     }
 };
 
 class ConfirmTicket extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          showComponent: false,
+        };
+        this.onButtonClick = this.onButtonClick.bind(this);
+    }
+
+    onButtonClick() {
+        this.setState({
+          showComponent: true,
+        });
+    }
+
     render() {
         return (
             <div>
                 <ButtonAppBar />
                 <h2>this is the page that sponsor confirm tickets.</h2>
+                <Button　variant="raised"　color="primary" onClick={this.onButtonClick}>チケット情報表示</Button>
+                
+                {this.state.showComponent ?
+                    <IssuedTicketList/> : null
+                }
             </div>
         );
     }
