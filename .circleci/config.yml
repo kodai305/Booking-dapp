@@ -5,6 +5,7 @@ jobs:
   build:
     docker:
       - image: circleci/python:2.7-jessie
+      - image: circleci/node:10.8.0
     working_directory: ~/working
     steps:
       - run:
