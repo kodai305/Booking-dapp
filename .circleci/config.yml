@@ -4,27 +4,27 @@ jobs:
   #deploy:
   build:
     working_directory: ~/working
-    
     docker:
       - image: circleci/node:8.11.4
-      - image: circleci/python:2.7-jessie
     steps:
       - run:
           name: Install dependencies
           command: npm install
-
-      - run:
-          name: Install awscli
-          command: sudo pip install awscli
-
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
- 
       # XXX: npm install is needed(?)
       - run: 
           name: Compile react project
           command: npm --prefix ./frontend build 
+  deploy:
+    working_directory: ~/working
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
       - run:
           name: Deploy to S3
           command: aws s3 sync ./frontend/build s3://booking-dapp.s3-website-ap-northeast-1.amazonaws.com --delete
