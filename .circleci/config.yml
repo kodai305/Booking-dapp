@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: npm --prefix ./frondend install
+          command: npm --prefix ./frontend install
 
           # XXX: npm install is needed(?)
       - run: 
