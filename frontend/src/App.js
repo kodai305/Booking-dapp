@@ -6,6 +6,7 @@ import Home from './containers/Home';
 import Issue from './containers/Issue';
 import Reserve from './containers/Reserve';
 import ConfirmTicket from './containers/ConfirmTicket';
+import TicketDetail from './containers/TicketDetail';
 
 // Route関連
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -27,6 +28,7 @@ class App extends Component {
               <Route exact path="/issue" component={Issue} />
               <Route exact path="/reserve" component={Reserve} />
               <Route exact path="/confirmTicket" component={ConfirmTicket} />
+              <Route exact path="/TicketDetail" component={TicketDetail} />
               <Route component={NotFound} />
             </Switch>
           </BrowserRouter>
