@@ -28,7 +28,7 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: Deploy to S3
-          command: aws s3 sync ./frontend/build s3://booking-dapp.s3-website-ap-northeast-1.amazonaws.com --delete
+          command: aws s3 sync ~/working/frontend/build s3://booking-dapp.s3-website-ap-northeast-1.amazonaws.com --delete
 
 workflows:
   version: 2
