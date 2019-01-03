@@ -3,7 +3,7 @@ jobs:
   # build job omitted for brevity
   #deploy:
   build:
-    working_directory: ./working
+    working_directory: ./
     docker:
       - image: circleci/node:8.11.4
     steps:
