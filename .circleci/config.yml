@@ -3,12 +3,24 @@ jobs:
   # build job omitted for brevity
   #deploy:
   build:
+    working_directory: ~/working
+    
     docker:
       - image: circleci/python:2.7-jessie
-      - image: circleci/node:4.8.2
-    working_directory: ~/working
+      - image: circleci/node:10.8.0
+    
     steps:
-      - checkout
+      - restore_cache:
+          name: Restore npm dependencies
+          key: npm-{{ checksum "package-lock.json" }}-{{ .Environment.CACHE_VERSION_NPM }}
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          name: Cache npm dependencies
+          key: npm-{{ checksum "package-lock.json" }}-{{ .Environment.CACHE_VERSION_NPM }}
+          paths:
+            - ~/workspace/node_modules
       - run:
           name: Install awscli
           command: sudo pip install awscli
