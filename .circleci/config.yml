@@ -4,9 +4,11 @@ jobs:
   #deploy:
   build:
     working_directory: ./
+    
     docker:
       - image: circleci/node:8.11.4
     steps:
+      - checkout
       - run:
           name: Install dependencies
           command: npm install
