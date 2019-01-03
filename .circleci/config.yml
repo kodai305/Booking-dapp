@@ -16,7 +16,7 @@ jobs:
       # XXX: npm install is needed(?)
       - run: 
           name: Compile react project
-          command: npm --prefix ./frontend build 
+          command: npm --prefix ./frontend run build 
   deploy:
     working_directory: ~/working
     docker:
