@@ -19,7 +19,7 @@ jobs:
           name: Compile react project
           command: npm --prefix ./frontend run build
       - persist_to_workspace:
-          root: ~/aws-rough
+          root: ~/working
           paths:
             - dist 
   deploy:
