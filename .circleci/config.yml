@@ -11,7 +11,11 @@ jobs:
       - run:
           name: Install awscli
           command: sudo pip install awscli
-      - run: npm install
+
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+ 
       # XXX: npm install is needed(?)
       - run: 
           name: Compile react project
