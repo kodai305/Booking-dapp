@@ -22,12 +22,15 @@ jobs:
     working_directory: ~/working
     docker:
       - image: circleci/python:3.6.4
+    
     steps:
+      - attach_workspace:
+          at: ~/working
       - checkout
       - run:
           name: Install awscli
           command: sudo pip install awscli
-      - run: 
+      - run:
           name: Deploy to S3
           command: aws s3 sync ./frontend/build s3://booking-dapp.s3-website-ap-northeast-1.amazonaws.com --delete
 
