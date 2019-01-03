@@ -6,9 +6,8 @@ jobs:
     working_directory: ~/working
     
     docker:
+      - image: circleci/node:8.11.4
       - image: circleci/python:2.7-jessie
-      - image: circleci/node:10.8.0
-    
     steps:
       - restore_cache:
           name: Restore npm dependencies
