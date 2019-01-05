@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import ButtonAppBar from "../components/headerReserver";
+import ButtonAppBar from "../components/headerSponsor";
 import IssuedTicketList from '../components/IssuedTicketList';
 
 const styles = {
