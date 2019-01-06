@@ -35,7 +35,7 @@ class ConfirmTicket extends Component {
             <div>
                 <ButtonAppBar />
                 <h2>this is the page that sponsor confirm tickets.</h2>
-                <Button　variant="raised"　color="primary" onClick={this.onButtonClick}>チケット情報表示</Button>
+                <Button　variant="contained"　color="primary" onClick={this.onButtonClick}>チケット情報表示</Button>
                 
                 {this.state.showComponent ?
                     <IssuedTicketList/> : null

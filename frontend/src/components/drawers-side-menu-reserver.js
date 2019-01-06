@@ -36,12 +36,12 @@ class SwipeableTemporaryDrawer extends Component {
         });
     };
 
-    handleToIssuePage = () => {
-        this.props.history.push('/issue')
+    handleToReservePage = () => {
+        this.props.history.push('/reserve')
     }
 
-    handleToConfirmTicketPage = () => {
-        this.props.history.push('/confirmTicket')
+    handleToMyTicketPage = () => {
+        this.props.history.push('/myTicketPage')
     }
 
     handleToHome = () => {
@@ -55,7 +55,7 @@ class SwipeableTemporaryDrawer extends Component {
             <div className={classes.list}>
                 <List>
                     {['チケット検索', 'マイチケット'].map((text, index) => (
-                        <ListItem button key={text} onClick={index % 2 === 0 ? this.handleToIssuePage : this.handleToConfirmTicketPage}>
+                        <ListItem button key={text} onClick={index % 2 === 0 ? this.handleToReservePage : this.handleToMyTicketPage}>
                             <ListItemIcon>{index % 2 === 0 ? <SearchIcon /> : <DNSIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>

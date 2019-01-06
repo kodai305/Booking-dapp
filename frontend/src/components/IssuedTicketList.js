@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { NavLink } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { getTicketIds } from "../utils/ticketController"; 
+import { getTicketInfo } from "../utils/ticketController"; 
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+
+
 //import TicketDetail from "../containers/TicketDetail";
 
 // 遷移
@@ -24,56 +29,61 @@ const styles = {
     }
 };
 
-function TicketList(props) {
-    const ids = props.ids;
-    
-    /*
-    課題： ids がゼロのときの挙動
-    */
-    //var ticketList;
-    console.log("ids:");
-    console.log(ids);
-    //if (ids.map) {
-    const ticketList = ids.map((id) =>
-            <Card style={styles.card} key={id}>
-                <CardContent>
-                    ticket {id} is exist
-            </CardContent>
-                <CardActions style={styles.button}>
-                    <NavLink to="/TicketDetail"><Button variant="contained" color="primary" >詳細(参加確認画面へ)</Button></NavLink>
-                </CardActions>
-            </Card>
-        );
-//    }
-    return (
-        <div>
-            {ids > 0 ? <span>チケット一覧</span> : <span>発行したチケットはありません</span>}
-            {ticketList}
-        </div>
-    );
-}
-
 class IssuedTicketList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             ids: [],
+            tickets: [],
+            expanded: false,
         }
+        this.handleExpandClick = this.handleExpandClick.bind(this);
     }; 
-    
-    handleToConfirmPage = () => {
-        this.props.history.push('/issue');
-    }
 
-    componentDidMount() {
+    async getTicketInfo() {
+        var _TicketInfos = [];
+        for (let id of this.state.ids) {
+            console.log("id: "+id);
+            var ret = await getTicketInfo(id);
+            console.log(ret);
+            var retJson = JSON.stringify(ret, null, 2);
+            _TicketInfos.push(retJson);
+        }
+        this.setState({ tickets: _TicketInfos });
+    };
+
+    async componentDidMount() {
         // fetch data and update state
-        getTicketIds().then(response => this.setState({ ids: response })).catch();
+        await getTicketIds().then(response => this.setState({ ids: response })).catch();
+        await this.getTicketInfo();
     }
-
+    
+    handleExpandClick = () => {
+        this.setState({ expanded: !this.state.expanded });
+        console.log(this.state.expanded);
+    };
+    
     render() {
+        const { classes } = this.props;
+
         return (
             <div>
-                <TicketList ids={this.state.ids} />
+                <h2>チケット一覧</h2>
+                {
+                    this.state.ids.map((id, index) =>
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <Typography className={classes.heading}>チケット {id}</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <Typography>
+                                    {this.state.tickets[index]} {/* XXX cannnot access id is not sequence*/}
+                                </Typography>
+                                <Button variant="contained" color="primary">承認</Button>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                    )
+                }
             </div>
         );
     }

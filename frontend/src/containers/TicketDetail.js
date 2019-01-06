@@ -5,6 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
+import { getTicketInfo } from "../utils/ticketController"; 
+
 const styles = {
     card: {
         margin: 56,
@@ -16,6 +18,18 @@ const styles = {
 };
 
 class TicketDetail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ticketInfo: "",
+        }
+    }; 
+
+    componentDidMount() {
+        // fetch data and update state
+        getTicketInfo().then(response => this.setState({ ticketInfo: response })).catch();
+    }
+
     render() {
         return (
             <div>
