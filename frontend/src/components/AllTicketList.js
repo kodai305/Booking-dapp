@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { getTicketNumber } from "../utils/ticketController"; 
 import { getTicketInfo } from "../utils/ticketController"; 
+import { reserveTicket } from "../utils/ticketController";
 //import TicketDetail from "../containers/TicketDetail";
 
 const styles = {
@@ -33,6 +34,12 @@ class AllTicketList extends React.Component {
             expanded: false,
         }
     }; 
+
+    async onClick(ticketId) {
+        console.log('チケット ' + ticketId + ' を買うよ！')
+        var ret = await reserveTicket(ticketId);
+        console.log(ret);
+    }
 
     async getTicketInfo() {
         var _TicketInfos = [];
@@ -67,7 +74,7 @@ class AllTicketList extends React.Component {
                                 <Typography>
                                     {ticket} 
                                 </Typography>
-                                <Button variant="contained" color="primary">予約</Button>
+                                <Button variant="contained" color="primary"　onClick={this.onClick.bind(this, index)}>予約</Button>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     )

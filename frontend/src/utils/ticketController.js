@@ -82,6 +82,22 @@ async function getMyTicketIds() {
   return ret;
 };
 export { getMyTicketIds };
+
+async function reserveTicket(id) {
+   // get accounts 
+   const accounts = await web3.eth.getAccounts();
+   try {
+     var ret = await Booking.methods.reserveTicket(id).send({
+       from: accounts[0]
+     });
+   } catch (e) {
+     console.log(e);
+   }
+   //console.log(ret);
+   return ret;
+};
+export { reserveTicket };
+
 // MEMO
 
 /*
