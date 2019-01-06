@@ -4,7 +4,6 @@ jobs:
   #deploy:
   build:
     working_directory: ~/working
-    
     docker:
       - image: circleci/node:8.11.4
     steps:
@@ -26,7 +25,6 @@ jobs:
     working_directory: ~/working
     docker:
       - image: circleci/python:3.6.4
-    
     steps:
       - attach_workspace:
           at: ~/working

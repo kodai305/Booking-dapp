@@ -9,9 +9,10 @@ contract Booking {
         address owner;
         string  status;
     }
-    
+    uint256 reservedId;
     Ticket[] tickets;
     mapping (address => uint256[]) ticketIds; //チケットの連想配列
+    mapping (address => uint256[]) reservedIds; //チケットの連想配列
     //mapping(uint => Ticket) tickets;
     
     constructor() public {
@@ -31,7 +32,7 @@ contract Booking {
         });
         uint256 newId = tickets.push(ticket) - 1;            
         ticketIds[_issuer].push(newId);
-        return ticketId;
+        return newId;
     }
     
     // チケット一覧を取得
@@ -39,6 +40,10 @@ contract Booking {
         return (ticketIds[_owner]);
     }
     
+    function getReservedTicketIds(address _owner) public view returns(uint256[] memory ids) {
+        return (reservedIds[_owner]);
+    }
+
     // 現在のチケット発行番号を取得（参照）する
     function getCurrentTicketId() view public returns (uint) {
         return tickets.length;
@@ -63,6 +68,7 @@ contract Booking {
         _ticket.status = "reserved";
         
         tickets[_ticketId] = _ticket;
+        reservedIds[msg.sender].push(_ticketId);
     }
     
     // イベント参加済にする(発行者しかできない)
