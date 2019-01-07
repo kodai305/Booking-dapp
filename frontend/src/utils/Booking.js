@@ -153,5 +153,8 @@ const abi = [
       }
 ];
 
-const Booking = new web3.eth.Contract(abi, address);
+var Booking = null;
+if (typeof(window.web3) !== 'undefined' || window.web3 != null) {
+  Booking = new web3.eth.Contract(abi, address);
+}
 export default (Booking);

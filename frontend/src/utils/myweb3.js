@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 
-const web3 = new Web3(window.web3.currentProvider);
-
+var web3 = null;
+if (typeof(window.web3) !== 'undefined' || window.web3 != null) {
+    web3 = new Web3(window.web3.currentProvider);
+}
 export default web3;
