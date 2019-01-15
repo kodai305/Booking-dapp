@@ -49,7 +49,8 @@ class IssuedTicketList extends React.Component {
             console.log("id: "+id);
             var ret = await getTicketInfo(id);
             console.log(ret);
-            var retJson = JSON.stringify(ret, null, 2);
+            var retJsonString = JSON.stringify(ret, null, 2);
+	    var retJson        = JSON.parse(retJsonString);
             _TicketInfos.push(retJson);
         }
         this.setState({ tickets: _TicketInfos });
@@ -65,9 +66,21 @@ class IssuedTicketList extends React.Component {
         this.setState({ expanded: !this.state.expanded });
         console.log(this.state.expanded);
     };
-    
+
     render() {
         const { classes } = this.props;
+
+
+	var arr = [];
+	var obj = null;
+	this.state.tickets[0] ? obj = this.state.tickets[0] : obj = null;
+	obj && Object.keys(obj).forEach(function(key) {
+	    console.log("key:");
+	    console.log(key);
+	    console.log("value:");
+	    console.log(obj[key]);
+	    arr.push(obj[key]);
+	});
 
         return (
             <div>
@@ -82,7 +95,8 @@ class IssuedTicketList extends React.Component {
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Typography>
-                                    {this.state.tickets[index]} {/* XXX cannnot access id is not sequence*/}
+							 {arr}
+
                                 </Typography>
                                 <Button variant="contained" color="primary">承認</Button>
                             </ExpansionPanelDetails>
