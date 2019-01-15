@@ -7,12 +7,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { getTicketIds } from "../utils/ticketController"; 
 import { getTicketInfo } from "../utils/ticketController"; 
+import TicketInfo from "./TicketInfo";
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Typography from '@material-ui/core/Typography';
-
+import Divider from '@material-ui/core/Divider';
 
 //import TicketDetail from "../containers/TicketDetail";
 
@@ -25,7 +27,7 @@ const styles = {
         height: 128
     },
     button: {
-        justifyContent: 'center'
+        justifyContent: 'right'
     }
 };
 
@@ -42,15 +44,15 @@ class IssuedTicketList extends React.Component {
 
     async getTicketInfo() {
         var _TicketInfos = [];
-	if (!this.state.ids) {
-	    return;
-	}
+        if (!this.state.ids) {
+            return;
+        }
         for (let id of this.state.ids) {
-            console.log("id: "+id);
+            console.log("id: " + id);
             var ret = await getTicketInfo(id);
             console.log(ret);
             var retJsonString = JSON.stringify(ret, null, 2);
-	    var retJson        = JSON.parse(retJsonString);
+            var retJson = JSON.parse(retJsonString);
             _TicketInfos.push(retJson);
         }
         this.setState({ tickets: _TicketInfos });
@@ -70,18 +72,6 @@ class IssuedTicketList extends React.Component {
     render() {
         const { classes } = this.props;
 
-
-	var arr = [];
-	var obj = null;
-	this.state.tickets[0] ? obj = this.state.tickets[0] : obj = null;
-	obj && Object.keys(obj).forEach(function(key) {
-	    console.log("key:");
-	    console.log(key);
-	    console.log("value:");
-	    console.log(obj[key]);
-	    arr.push(obj[key]);
-	});
-
         return (
             <div>
                 <h2>チケット一覧</h2>
@@ -94,12 +84,12 @@ class IssuedTicketList extends React.Component {
                                 <Typography className={classes.heading}>チケット {id}</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <Typography>
-							 {arr}
-
-                                </Typography>
-                                <Button variant="contained" color="primary">承認</Button>
+                                    <TicketInfo data={this.state.tickets[index]} key={id} />
                             </ExpansionPanelDetails>
+                            <Divider />
+                            <ExpansionPanelActions>
+                                <Button variant="contained" color="primary">承認</Button>
+                            </ExpansionPanelActions>
                         </ExpansionPanel>
                     )
                 }

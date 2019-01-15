@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -14,6 +16,7 @@ import { getTicketNumber } from "../utils/ticketController";
 import { getTicketInfo } from "../utils/ticketController"; 
 import { reserveTicket } from "../utils/ticketController";
 //import TicketDetail from "../containers/TicketDetail";
+import TicketInfo from "./TicketInfo";
 
 const styles = {
     card: {
@@ -47,7 +50,8 @@ class AllTicketList extends React.Component {
             console.log("id: "+id);
             var ret = await getTicketInfo(id);
             console.log(ret);
-            var retJson = JSON.stringify(ret, null, 2);
+            var retJsonString = JSON.stringify(ret, null, 2);
+            var retJson = JSON.parse(retJsonString);
             _TicketInfos.push(retJson);
         }
         this.setState({ tickets: _TicketInfos });
@@ -72,10 +76,13 @@ class AllTicketList extends React.Component {
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Typography>
-                                    {ticket} 
+                                    <TicketInfo data={ticket} key={index} />
                                 </Typography>
-                                <Button variant="contained" color="primary"　onClick={this.onClick.bind(this, index)}>予約</Button>
                             </ExpansionPanelDetails>
+                            <Divider />
+                            <ExpansionPanelActions>
+                                <Button variant="contained" color="primary"　onClick={this.onClick.bind(this, index)}>予約</Button>
+                            </ExpansionPanelActions>
                         </ExpansionPanel>
                     )
                 }

@@ -38,7 +38,7 @@ class ConfirmTicket extends Component {
                 <Button　variant="contained"　color="primary" onClick={this.onButtonClick}>チケット情報表示</Button>
                 
                 {this.state.showComponent ?
-                    <IssuedTicketList/> : null
+                    <IssuedTicketList key='issued'/> : null
                 }
             </div>
         );

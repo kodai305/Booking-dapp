@@ -7,10 +7,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { getMyTicketIds } from "../utils/ticketController"; 
 import { getTicketInfo } from "../utils/ticketController"; 
+import TicketInfo from "./TicketInfo";
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -49,7 +52,8 @@ class IssuedTicketList extends React.Component {
             console.log("id: "+id);
             var ret = await getTicketInfo(id);
             console.log(ret);
-            var retJson = JSON.stringify(ret, null, 2);
+            var retJsonString = JSON.stringify(ret, null, 2);
+            var retJson = JSON.parse(retJsonString);
             _TicketInfos.push(retJson);
         }
         this.setState({ tickets: _TicketInfos });
@@ -81,10 +85,15 @@ class IssuedTicketList extends React.Component {
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 <Typography>
-                                    {this.state.tickets[index]} {/* XXX cannnot access id is not sequence*/}
+                                    <TicketInfo data={this.state.tickets[index]} key={id} />
                                 </Typography>
-                                <Button variant="contained" color="secondary">キャンセル</Button>
                             </ExpansionPanelDetails>
+                            <Divider />
+                            <ExpansionPanelActions>
+                                <Button variant="contained" color="secondary">キャンセル</Button>
+                            </ExpansionPanelActions>
+                                                            
+
                         </ExpansionPanel>
                     )
                 }
