@@ -16,16 +16,3 @@ class TicketInfo extends React.Component {
     }
 }
 export default (TicketInfo);
-
-{/*
-var arr = [];
-var obj = null;
-this.state.tickets[0] ? obj = this.state.tickets[0] : obj = null;
-obj && Object.keys(obj).forEach(function(key) {
-    console.log("key:");
-    console.log(key);
-    console.log("value:");
-    console.log(obj[key]);
-    arr.push(obj[key]);
-});
-*/}
