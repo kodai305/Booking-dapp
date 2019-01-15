@@ -42,6 +42,9 @@ class IssuedTicketList extends React.Component {
 
     async getTicketInfo() {
         var _TicketInfos = [];
+	if (!this.state.ids) {
+	    return;
+	}
         for (let id of this.state.ids) {
             console.log("id: "+id);
             var ret = await getTicketInfo(id);
@@ -69,8 +72,10 @@ class IssuedTicketList extends React.Component {
         return (
             <div>
                 <h2>チケット一覧</h2>
+		{   !this.state.ids && <span> there is no tickets </span> }
+
                 {
-                    this.state.ids.map((id, index) =>
+		    this.state.ids && this.state.ids.map((id, index) =>
                         <ExpansionPanel>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <Typography className={classes.heading}>チケット {id}</Typography>
