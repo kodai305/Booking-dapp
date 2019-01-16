@@ -47,6 +47,7 @@ class IssuedTicketList extends React.Component {
 	console.log("ticketId:");
 	console.log(ticketId);
 	var ret = await approveToParticipate(ticketId);
+	console.log(ret);
     }
 
     async getTicketInfo() {
