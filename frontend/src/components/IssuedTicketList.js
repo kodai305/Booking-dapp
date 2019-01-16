@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { getTicketIds } from "../utils/ticketController"; 
 import { getTicketInfo } from "../utils/ticketController"; 
+import { approveToParticipate } from "../utils/ticketController";
 import TicketInfo from "./TicketInfo";
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -41,6 +42,12 @@ class IssuedTicketList extends React.Component {
         }
         this.handleExpandClick = this.handleExpandClick.bind(this);
     }; 
+
+    async onClick(ticketId) {
+	console.log("ticketId:");
+	console.log(ticketId);
+	var ret = await approveToParticipate(ticketId);
+    }
 
     async getTicketInfo() {
         var _TicketInfos = [];
@@ -88,7 +95,7 @@ class IssuedTicketList extends React.Component {
                             </ExpansionPanelDetails>
                             <Divider />
                             <ExpansionPanelActions>
-                                <Button variant="contained" color="primary">承認</Button>
+                                <Button variant="contained" color="primary" onClick={this.onClick.bind(this, id)}>承認</Button>
                             </ExpansionPanelActions>
                         </ExpansionPanel>
                     )

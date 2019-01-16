@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ButtonAppBar from "../components/headerReserver";
 
-import AllTicketList from '../components/AllTicketList'; //UT
+import AllTicketList from '../components/AllTicketList'; 
 
 const styles = {
     card: {

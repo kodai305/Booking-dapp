@@ -10,7 +10,7 @@ class TicketInfo extends React.Component {
                 <p align="left">ticketName: {data && data.ticketName}</p>
                 <p align="left">eventInfo: {data && data.eventInfo}</p>
                 <p align="left">owner: {data && data[3]}</p>
-                <p align="left">states: {data && data.status}</p>
+                <p align="left">status: {data && data.status}</p>
             </div>
         );
     }

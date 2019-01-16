@@ -40,6 +40,7 @@ async function getTicketIds() {
 };
 export { getTicketIds };
 
+
 async function getTicketNumber() {
   // get accounts 
   const accounts = await web3.eth.getAccounts();  
@@ -53,6 +54,25 @@ async function getTicketNumber() {
   return ret;
 };
 export { getTicketNumber };
+
+
+async function getMyTicketIds() {
+  // get accounts 
+  const accounts = await web3.eth.getAccounts();
+    console.log("accounts:")
+    console.log(accounts)
+  try {
+    var ret = await Booking.methods.getReservedTicketIds(accounts[0]).call({
+      from: accounts[0]
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  //console.log(ret);
+  return ret;
+};
+export { getMyTicketIds };
+
 
 async function getTicketInfo(id) {
   // get accounts 
@@ -68,20 +88,6 @@ async function getTicketInfo(id) {
 };
 export { getTicketInfo };
 
-async function getMyTicketIds() {
-  // get accounts 
-  const accounts = await web3.eth.getAccounts();
-  try {
-    var ret = await Booking.methods.getReservedTicketIds(accounts[0]).call({
-      from: accounts[0]
-    });
-  } catch (e) {
-    console.log(e);
-  }
-  //console.log(ret);
-  return ret;
-};
-export { getMyTicketIds };
 
 async function reserveTicket(id) {
    // get accounts 
@@ -97,6 +103,21 @@ async function reserveTicket(id) {
    return ret;
 };
 export { reserveTicket };
+
+async function approveToParticipate(id) {
+   // get accounts 
+   const accounts = await web3.eth.getAccounts();
+   try {
+     var ret = await Booking.methods.approveToParticipate(id).send({
+       from: accounts[0]
+     });
+   } catch (e) {
+     console.log(e);
+   }
+   //console.log(ret);
+   return ret;
+}
+export { approveToParticipate };
 
 // MEMO
 
